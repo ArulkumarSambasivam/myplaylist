@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
+import Footer from './components/Footer'
+import AddTodo from './containers/AddTodo'
+import VisibleTodoList from './containers/VisibleTodoList'
 
 import {
   BrowserRouter as Router,
@@ -29,6 +34,7 @@ const BasicExample = () => (
         <li><Link to="/topics">Topics</Link></li>
       </ul>
    </nav>
+    <tbody class="list row"></tbody>
    
 
       <Route exact path="/" component={Home}/>
@@ -37,16 +43,97 @@ const BasicExample = () => (
     </div>
   </Router>
 )
+var list = document.querySelector('.list'),
+  last = new Date(),
+  threshold = 100,
+  count = -1,
+  innerHTML = "";
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
+class Home extends React.Component {
+
+  constructor(props) {
+    super(props);
+    console.log(arguments)
+
+    this.events = [""];
+    console.log("constructor", false, '(props, context, updater)')
+    this.state = {
+      count: 0
+    };
+  }
+  log = (txt, user, args) => {
+    var now = new Date();
+    count++;
+    //var argsinfo = ((args) ? args.length : 0)+' arguments';
+    txt = txt+args;
+    if (now - last > threshold) {
+      innerHTML = '<tr class="row"><td class="col-xs-12" colspan="3"><br></td></tr>' + innerHTML;
+      last = now;
+      count = 0;
+    }
+    innerHTML = '<tr class="row'+((user) ? ' user' : '')+'"><td class="col-xs-1">' + count + '</td><td class="col-xs-9">' + txt + '</td><td class="col-xs-2 mono">' + JSON.stringify(this.state) + '</td></tr>' +innerHTML;
+
+  };
+
+  componentWillMount = () => {
+    console.log("componentWillMount", false, "()");
+  };
+componentWillUnmount = () => {
+    console.log("componentWillUnmount", false, "()");
+  };
+
+  componentWillUpdate = () => {
+    console.log("componentWillUpdate", false, "(nextProps, nextState, nextContext)");
+  };
+  componentDidUpdate = () => {
+    console.log("componentDidUpdate", false, "(prevProps, prevState, prevContext)");
+  };
+
+  shouldComponentUpdate = () => {
+    console.log("shouldComponentUpdate", false, "(nextProps, nextState, nextContext)");
+    return true;
+  };
+
+  // Called only once 
+  componentDidMount = () => {
+    console.log("componentDidMount", false, "(prevProps, prevState, prevContext)")
+  };
+
+  // NOT CALLED IN ES6
+  getInitialState = () => {
+    console.log("getInitialState", false, "()");
+  };
+  // NOT CALLED IN ES6
+  getDefaultProps = () => {
+    console.log("getDefaultProps", false, "()");
+  };
+  // NOT CALLED IN ES6
+  componentWillReceiveProps = () => {
+    console.log("componentWillReceiveProps", false, "(nextProps)");
+  };
+
+  // This is a non-react-native function
+  increment = () => {
+    console.log("increment", true, "()")
+    this.setState({
+      count: this.state.count + 1
+    });
+  };
+  render() {
+    console.log("render", false, "()");
+    return (
+      <button className="btn btn-primary" onClick={this.increment}>Clicked {this.state.count} time{(this.state.count>1 || this.state.count===0) ? 's' : ''}</button>
+
+    )
+  }
+}
+
 
 const About = () => (
-  <div>
-    <h2>About</h2>
+   <div>
+    <AddTodo />
+    <VisibleTodoList />
+    <Footer />
   </div>
 )
 
