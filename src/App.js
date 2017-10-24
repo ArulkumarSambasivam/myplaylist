@@ -30,15 +30,13 @@ const BasicExample = () => (
     <nav class="navbar navbar-default">
       <ul class="nav navbar-nav">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
+        <li><Link to="/addplaylist">Add Play List</Link></li>
         <li><Link to="/topics">Topics</Link></li>
       </ul>
    </nav>
-    <tbody class="list row"></tbody>
-   
 
       <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
+      <Route path="/addplaylist" component={AddPlayList}/>
       <Route path="/topics" component={Topics}/>
     </div>
   </Router>
@@ -129,7 +127,7 @@ componentWillUnmount = () => {
 }
 
 
-const About = () => (
+const AddPlayList = () => (
    <div>
     <AddTodo />
     <VisibleTodoList />
