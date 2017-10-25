@@ -23,10 +23,19 @@ class App extends Component {
   }
 }
 
+const headerstyle ={
+  width:"100%",height:"100px"
+}
+const headerimagestyle={
+  height:"100px"
+}
 
 const BasicExample = () => (
   <Router>
     <div>
+    <div style={headerstyle}>
+      <img style={headerimagestyle} src="playlist.jpg"/>
+    </div>
     <nav class="navbar navbar-default">
       <ul class="nav navbar-nav">
         <li><Link to="/">Home</Link></li>
